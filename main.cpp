@@ -8,7 +8,7 @@ using namespace std;
 
 const int columnCount = 5 ;
 
-
+//read datdabase file into a datastream, and convert it into a vector
 void readCatalogue(const string fileName, int catalogue[100][columnCount], int &lineCount) {
     ifstream catalogueFile(fileName);
     if (!catalogueFile.is_open()) {//check if file has opened properly, if not, terminate the method early
@@ -38,11 +38,12 @@ void readCatalogue(const string fileName, int catalogue[100][columnCount], int &
 int main()
 {   
     
-    //read datdabase file into a datastream, and convert it into a vector
+    
    
     
     
     char selector;
+    char searchSelector;
     while(selector!=6){
     
     cout<<"______Welcome to the Catalogue_______"<<endl;
@@ -64,7 +65,28 @@ int main()
         
         
     }else if(selector=='3'){//--------------------------------------
-    
+        while(searchSelector!=4){
+            cout<<"Edit filters?"<<endl;
+            cout<<"1.Genre"<<endl;
+            cout<<"2.Author"<<endl;
+            cout<<"3.Price"<<endl;
+            cout<<"4.Confirm Search"<<endl;
+            cout<<"Proceed when Ready:"<<endl;
+            cin>>searchSelector;
+            if (searchSelector=='1'){     //******************
+        
+        
+            }else if(searchSelector=='2'){//******************
+
+        
+            }else if(searchSelector=='3'){//******************
+                
+            }else if(searchSelector=='4'){//******************
+        
+            }else{
+                
+            }
+        }
         
         
     }else if(selector=='4'){//--------------------------------------
@@ -76,8 +98,9 @@ int main()
         
         
     }else if(selector=='6'){//--------------------------------------
-
         
+        cout<<"Exiting Program...";
+        return 0;
     
     }else{
         cout<<"Invalid Number entered, please try again."<<endl;
