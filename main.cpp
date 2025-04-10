@@ -65,12 +65,15 @@ int main()
         
         
     }else if(selector=='3'){//--------------------------------------
-        while(searchSelector!=4){
+        while(searchSelector!='5'){
+            
+            cout<<"_____________Search Menu_____________"<<endl;
             cout<<"Edit filters?"<<endl;
             cout<<"1.Genre"<<endl;
             cout<<"2.Author"<<endl;
             cout<<"3.Price"<<endl;
             cout<<"4.Confirm Search"<<endl;
+            cout<<"5.Back"<<endl;
             cout<<"Proceed when Ready:"<<endl;
             cin>>searchSelector;
             if (searchSelector=='1'){     //******************
@@ -82,9 +85,11 @@ int main()
             }else if(searchSelector=='3'){//******************
                 
             }else if(searchSelector=='4'){//******************
-        
+            
+            }else if(searchSelector=='5'){//******************
+                selector = 1;
             }else{
-                
+                cout<<"Invalid Number entered, please try again."<<endl;
             }
         }
         
