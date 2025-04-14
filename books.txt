@@ -1,3 +1,6 @@
 serialNumber,title,authorFirstName,authorLastName,genre,price,stock,keywords
 001,Fourth Wing,Rebecca,Yarros,Fantasy,7.99,1,journey dragon kingdom
 002,Sunrise on the Reaping,Suzanne,Collins,science fiction,10.99,1,district love fight
+003,Think and Grow Rich,Napoleon,Hill,motivational,9.99,1,money mind intelligence
+004,The Law of Success,Napoleon,Hill,motivational,8.99,1,mind work succeed
+005,The Grey Wolf,Louise,Penny,mystery,9.99,murder threat terrorism
