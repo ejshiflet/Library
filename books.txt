@@ -1,1 +1,3 @@
 serialNumber,title,authorFirstName,authorLastName,genre,price,stock,keywords
+001,Fourth Wing,Rebecca,Yarros,Fantasy,7.99,1,journey dragon kingdom
+002,Sunrise on the Reaping,Suzanne,Collins,science fiction,10.99,1,district love fight
