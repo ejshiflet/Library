@@ -6,6 +6,7 @@ bool titleSearch(const std::vector<std::string>& vec, const std::string& title);
 
 bool keywordSearch(const std::vector<std::string>& vec, const std::string& title);//should return true if any of the entered text is found within the book's keyword section
 
+
 bool genreSearch(const std::vector<std::string>& vec, const std::string& genre);//should return true if the genre entered matches the books genre
 
 bool authorSearch(const std::vector<std::string>& vec, const std::string& firstName, const std::string& lastName);//should return true if the author's first or last name is found in the book
