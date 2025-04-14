@@ -28,8 +28,8 @@ int main()
     while(selector!=6){
     
     cout<<"______Welcome to the Catalogue_______"<<endl;
-    cout<<"1.Add Book"<<endl;
-    cout<<"2.Remove Book"<<endl;
+    cout<<"1.Add Book(WIP)"<<endl;
+    cout<<"2.Remove Book(WIP)"<<endl;
     cout<<"3.Search"<<endl;
     cout<<"4.Checkout"<<endl;
     cout<<"5.Purchase"<<endl;
@@ -39,11 +39,11 @@ int main()
     
     if (selector=='1'){     //--------------------------------------
         
-        
+        cout<<"Nothing Here yet"<<endl;//###
         
     }else if(selector=='2'){//--------------------------------------
 
-        
+        cout<<"Nothing Here yet"<<endl;//###
         
     }else if(selector=='3'){//--------------------------------------
         string genre;
@@ -55,8 +55,8 @@ int main()
             
             cout<<"_____________Search Menu_____________"<<endl;
             cout<<"Edit filters?"<<endl;
-            cout<<"1.Genre"<<endl;
-            cout<<"2.Author"<<endl;
+            cout<<"1.Genre(WIP)"<<endl;
+            cout<<"2.Author(WIP)"<<endl;
             cout<<"3.Price"<<endl;
             cout<<"4.Confirm Search"<<endl;
             cout<<"5.Back"<<endl;
@@ -77,6 +77,20 @@ int main()
                 cout<<"Enter maximum price:"<<endl;
                 cin>>price2;                
             }else if(searchSelector=='4'){//******************
+                bool noResults = true;
+                cout<<"___________Search Results___________"<<endl;
+                for (const Book& book : catalogue_Vector) {
+                
+                    if(/*genreSearch(book,genre) && authorSearch(book,authorFirstName,authorLastName) && */priceSearch(book,price1,price2) && inStock(book)){
+                    book.print();
+                    noResults=false;
+                    }
+                }
+                if (noResults){
+                    cout<< "We don't seem to have any books in stock that match those filters."<<endl;
+                }
+                
+            
             
             }else if(searchSelector=='5'){//******************
                 selector = 1;
@@ -87,11 +101,40 @@ int main()
         
         
     }else if(selector=='4'){//--------------------------------------
-
+        int checkoutNumber;
+        bool validInput = false;
+        cout<<"Enter the serial number of a book to check it out:";
+        cin>>checkoutNumber;
         
+        for (const Book& book : catalogue_Vector) {
+                
+            if(book.serialNumber == checkoutNumber){
+            cout<< "You have checked out "<< book.title <<", Thank you for visiting!"<<endl;
+            validInput = true;
+            }
+        }
+        if (!validInput){ 
+            cout<< "We don't seem to have a book with that serial number."<<endl;
+            
+        }
         
     }else if(selector=='5'){//--------------------------------------
-
+        int purchaseNumber;
+        bool validInput = false;
+        cout<<"Enter the serial number of a book to check it out:";
+        cin>>purchaseNumber;
+        
+        for (const Book& book : catalogue_Vector) {    
+            if(book.serialNumber == purchaseNumber){
+            cout<< "You have Purchased "<< book.title <<", $"<< book.price << " has been deducted from your accout, Thank you for visiting!"<<endl;
+            validInput = true;
+            }
+        }
+        if (!validInput){ 
+            cout<< "We don't seem to have a book with that serial number."<<endl;
+            
+        }
+        
         
         
     }else if(selector=='6'){//--------------------------------------
