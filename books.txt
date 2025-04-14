@@ -1,0 +1,1 @@
+serialNumber,title,authorFirstName,authorLastName,genre,price,stock,keywords
