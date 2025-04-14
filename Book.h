@@ -1,6 +1,6 @@
 #ifndef BOOK_H
 #define BOOK_H
-
+#include <iostream>
 #include <string>
 struct Book {
     int serialNumber;
@@ -14,5 +14,13 @@ struct Book {
 
     Book(int serial, const std::string& t, const std::string& authorFirst, const std::string& authorLast, const std::string& g, double p, int s, const std::string& k)
          : serialNumber(serial), title(t), authorFirstName(authorFirst), authorLastName(authorLast), genre(g), price(p), stock(s), keywords(k) {}
+         
+         
+         
+    void print() const {
+        std::cout<<title<<", by "<<authorFirstName<<" "<< authorLastName<<", Genre: "<<genre<<", Stock: "<<stock<<", Price: $"<<price<<", Serial Number: "<<serialNumber << std::endl;
+    }
+    
+    
 };
 #endif
