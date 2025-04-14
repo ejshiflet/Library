@@ -6,39 +6,33 @@
 
 using namespace std;
 
-const int columnCount = 5 ;
 
-//read datdabase file into a datastream, and convert it into a vector
-void readCatalogue(const string fileName, int catalogue[100][columnCount], int &lineCount) {
-    ifstream catalogueFile(fileName);
-    if (!catalogueFile.is_open()) {//check if file has opened properly, if not, terminate the method early
-        cout << "Error: Could not open file " << fileName << endl;
-        return;
-    }
-
-    lineCount = 0;
-    string currentLine;
-    while (getline(catalogueFile, currentLine, '\n')) {//should seperate the file by \n into strings containing each book's properties
-        stringstream lineStream(currentLine);
-        string currentColumn;
-        int attributeIndex = 0;
-
-        while (getline(lineStream, currentColumn, ',') && attributeIndex < columnCount) {//then each line is converted back into a datastream and seperated by comma into the inner arrays
-            catalogue[lineCount][attributeIndex] = stoi(currentColumn);
-            attributeIndex++;
-        }
-
-        lineCount++;
-    }
-
-    catalogueFile.close();
-}
+struct Book {
+    int serialNumber;
+    string title;
+    string authorFirstName;
+    string authorLastName;
+    string genre;
+    double price;
+    int stock;
+    string keywords;
+    
+    
+    Book(int serial, const string& t, const string& authorFirst, const string& authorLast, const string& g, double p, int s, const string& k)
+        : serialNumber(serial), title(t), authorFirstName(authorFirst), authorLastName(authorLast), genre(g), price(p), stock(s), keywords(k) {}
+};
 
 
 int main()
 {   
     
-    
+    //books entered manually for testing purposes, file will be used in the future
+    Book book1(1, "Fourth Wing", "Rebecca", "Yarros", "Fantasy", 7.99, 1, "journey dragon kingdom");
+    Book book2(2, "Sunrise on the Reaping", "Suzanne", "Collins", "Science Fiction", 10.99, 1, "district love fight");
+    Book book3(3, "Think and Grow Rich", "Napoleon", "Hill", "Motivational", 9.99, 1, "money mind intelligence");
+    Book book4(4, "The Law of Success", "Napoleon", "Hill", "Motivational", 8.99, 1, "mind work succeed");
+    Book book5(5, "The Grey Wolf", "Louise", "Penny", "Mystery", 9.99, 1, "murder threat terrorism");
+
    
     
     
@@ -65,6 +59,11 @@ int main()
         
         
     }else if(selector=='3'){//--------------------------------------
+        string genre;
+        string authorFirstName;
+        string authorLastName;
+        double price1;
+        double price2;
         while(searchSelector!='5'){
             
             cout<<"_____________Search Menu_____________"<<endl;
@@ -77,13 +76,19 @@ int main()
             cout<<"Proceed when Ready:"<<endl;
             cin>>searchSelector;
             if (searchSelector=='1'){     //******************
-        
-        
+                cout<<"Enter desired Genre:"<<endl;
+                cin>>genre;
             }else if(searchSelector=='2'){//******************
-
+                cout<<"Enter Author's first name:"<<endl;
+                cin>>authorFirstName;
+                cout<<"Enter Author's Last name:"<<endl;
+                cin>>authorLastName;
         
             }else if(searchSelector=='3'){//******************
-                
+                cout<<"Enter minimum price:"<<endl;
+                cin>>price1;
+                cout<<"Enter maximum price:"<<endl;
+                cin>>price2;                
             }else if(searchSelector=='4'){//******************
             
             }else if(searchSelector=='5'){//******************
