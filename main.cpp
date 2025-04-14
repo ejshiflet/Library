@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ int main()
     Book book4(4, "The Law of Success", "Napoleon", "Hill", "Motivational", 8.99, 1, "mind work succeed");
     Book book5(5, "The Grey Wolf", "Louise", "Penny", "Mystery", 9.99, 1, "murder threat terrorism");
 
-   
+    vector<Book> catalogue_Vector = {book1, book2, book3, book4, book5};
     
     
     char selector;
