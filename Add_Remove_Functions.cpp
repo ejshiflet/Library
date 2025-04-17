@@ -6,6 +6,8 @@
 #include <limits>
 #include <cctype>
 #include <string>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -14,7 +16,7 @@ using namespace std;
 int getSerialNumber(vector<Book>& bookVector){
     //cin.ignore();
     while(true){
-    std::string serialNumberString;
+    string serialNumberString;
     int serialNumber;
     bool valid_input = false;
     int i=0;
@@ -27,15 +29,17 @@ int getSerialNumber(vector<Book>& bookVector){
                     cout<<"Invalid input. No spaces should be entered."<<endl;
                     goto outerLoop;
                 }
+                //the if statement below will keep users from entering letter after the serial number which stoi() does not detect
+                if(element == '0' ||element == '1'|| element == '2' ||element == '3' ||element == '4' ||element == '5' ||element == '6' ||element == '7' ||element == '8' ||element == '9' ){
+                    continue;
+                }
+                else{
+                    cout<<"Invalid input. Only numbers should be entered."<<endl;
+                    goto outerLoop;
+                }
             }
-            try {//this will try to convert the serial number entered to a string
-                serialNumber = stoi(serialNumberString);//convert
-                valid_input = true;//if it works make the input valid
-            } catch (const invalid_argument& e) {
-                cerr << "Invalid input. Please enter an integer." << endl;
-            } catch (const out_of_range& e) {
-                cerr << "Input out of range. Please enter an integer within the valid range." << endl;
-            }
+            serialNumber = stoi(serialNumberString);//convert
+            valid_input = true;//if it works make the input valid
         }
             
 
@@ -172,24 +176,39 @@ string getGenre(vector<Book>& bookVector){//this function will get the genre
 
 //=========================================================================================================================================
 
-int getPrice(vector<Book>& bookVector){
+double getPrice(vector<Book>& bookVector){
     string priceString;
-    float price;
+    double price;
     while(true){
     bool valid_input = false;
-    int i=0;
         while (!valid_input) {//this while loop will make sure the user input has no spaces and is an integer
             cout << "Enter a price: ";
             getline(cin, priceString);//get input
-            
+            int decimalCount=0;
             for(char element:priceString){//for loop will check every line for spaces
                 if(element== ' '){//if there is a space it will goto the end of the outer while(true) loop and start again
                     cout<<"Invalid input. No spaces should be entered."<<endl;
                     goto outerLoop;
                 }
+                if(element =='.'){//counts how many decimals are in the user input
+                    decimalCount = decimalCount + 1;
+                }
+                if(decimalCount>1){//if there is more than one decimal it will go back to the outer loop
+                    cout<<"Invalid input. Too many decimals were entered."<<endl;
+                    goto outerLoop;
+                }
+                //the if and else statement below will keep users from entering letter after the serial number which stof() does not detect
+                if(element == '0' ||element == '1'|| element == '2' ||element == '3' ||element == '4' ||element == '5' ||element == '6' ||element == '7' ||element == '8' ||element == '9'|| element =='.' ){
+                    ;
+                }
+                else{
+                    cout<<"Invalid input. Only numbers and a '.' should be entered."<<endl;
+                    goto outerLoop;
+                }
             }
             try {//this will try to convert the serial number entered to a string
-                price = stof(priceString);//convert
+                cout<<priceString<<endl;
+                price = stod(priceString);//convert
                 valid_input = true;//if it works make the input valid
             } catch (const invalid_argument& e) {
                 cerr << "Invalid input. Please enter an integer." << endl;
@@ -199,6 +218,9 @@ int getPrice(vector<Book>& bookVector){
             outerLoop:
             continue;
         }
+        stringstream ss;
+        ss<<fixed<<setprecision(2)<<price;//string stream will set fixed precision to two decimal places
+        ss>>price;
         return price;
     }
 }
@@ -309,16 +331,62 @@ string getKeyWords(){//this function will get the book author first name
 
 //=========================================================================================================================================
 
-void addBook(vector<Book>& bookVector){//should return nothing but will allow the user to add a book and append it to the book vector and books.txt file
-    int serialNumber = getSerialNumber(bookVector);
-    cout<<serialNumber;
-    string title = getTitle(bookVector);
-    string authorFirstName = getFirstName(bookVector);
-    string authorLastName = getLastName(bookVector);
-    string genre = getGenre(bookVector);
-    float price = getPrice(bookVector);
-    string keyWords = getKeyWords();
+void addBookToTextFile(){
     
+}
+
+//=========================================================================================================================================
+
+int addBook(vector<Book>& bookVector){//should return nothing but will allow the user to add a book and append it to the book vector and books.txt file
+    bool isValid = false;
+    int serialNumber;
+    string title;
+    string authorFirstName;
+    string authorLastName;
+    string genre;
+    double price;
+    string keyWords;
+    
+    while(!isValid){
+        int serialNumber = getSerialNumber(bookVector);
+        string title = getTitle(bookVector);
+        string authorFirstName = getFirstName(bookVector);
+        string authorLastName = getLastName(bookVector);
+        for(auto&book : bookVector){//this for loop will will verify that the book entered does not exist
+            if(title==book.title and authorFirstName==book.authorFirstName and authorLastName==book.authorLastName){
+                cout<<"This book has already been added to the catologue.";
+                goto skipInputs;
+            }
+            else{
+                continue;
+            }
+        }
+        genre = getGenre(bookVector);
+        price = getPrice(bookVector);
+        keyWords = getKeyWords();
+        
+        //add book to txt file and vector there
+        
+        skipInputs:;
+        string stopOrContinue;
+        
+        cout<<"If you would like to continue entering books type '1' or '2' to return to main menu:";
+        getline(cin, stopOrContinue);
+        while(true){
+            if(stopOrContinue=="1"){
+                isValid = false;
+                break;
+            }
+            else if(stopOrContinue == "2"){
+                isValid = true;
+                break;
+            }
+            else{
+                cout<<"Invalid input. Please enter '1' or '2'."<<endl;
+            }
+        }
+    }
+    return 0;
 }
     
 
