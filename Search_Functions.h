@@ -4,9 +4,9 @@
 #include "Book.h"
 #include <string>
 
-bool titleSearch(const Book& book, const std::string& title);//should return true if any of the entered text is found within the book's title
+bool titleSearch(vector<Book>& bookVector, const std::string& title);//should return true if any of the entered text is found within the book's title
 
-bool keywordSearch(const Book& book, const std::string& title);//should return true if any of the entered text is found within the book's keyword section
+bool keywordSearch(vector<Book>& bookVector, const std::string& title);//should return true if any of the entered text is found within the book's keyword section
 
 
 bool genreSearch(const Book& book, const std::string& genre);//should return true if the genre entered matches the books genre
