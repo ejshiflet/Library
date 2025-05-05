@@ -6,8 +6,8 @@
 
 using namespace std;
 
-void addBook(vector<Book>& bookVector);//should return nothing but will allow the user to add a book and append it to the book vector and books.txt file
+int addBook(vector<Book>& bookVector);//should return nothing but will allow the user to add a book and append it to the book vector and books.txt file
 
-void removeBook(vector<Book>& bookVector);//should return nothing but a book from the object vector and books file
+int removeBook(vector<Book>& bookVector);//should return nothing but a book from the object vector and books file
 
 #endif
