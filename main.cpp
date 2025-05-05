@@ -80,7 +80,6 @@ int main()
     cout<<"4.Checkout"<<endl;
     cout<<"5.Purchase"<<endl;
     cout<<"6.Exit"<<endl;
-    //cout<<"What operation would you like to perform?";
     selector = validateChar("What operation would you like to perform?");
     
     if (selector=='1'){     //--------------------------------------
@@ -106,11 +105,11 @@ int main()
             cout<<"3.Price"<<endl;
             cout<<"4.Confirm Search"<<endl;
             cout<<"5.Back"<<endl;
-            cout<<"Proceed when Ready:"<<endl;
-            cin>>searchSelector;
+            searchSelector = validateChar("What operation would you like to perform?");
             if (searchSelector=='1'){     //******************
                 cout<<"Enter desired Genre:"<<endl;
                 cin>>genre;
+                
             }else if(searchSelector=='2'){//******************
                 cout<<"Enter Author's first name:"<<endl;
                 cin>>authorFirstName;
@@ -118,12 +117,12 @@ int main()
                 cin>>authorLastName;
         
             }else if(searchSelector=='3'){//******************
-                cout<<"Enter minimum price:"<<endl;
-                cin>>price1;
-                cout<<"Enter maximum price:"<<endl;
-                cin>>price2;                
+                price1 = validateDouble("Enter minimum price:");
+                price2 = validateDouble("Enter maximum price:");
+                
             }else if(searchSelector=='4'){//******************
                 bool noResults = true;
+                
                 cout<<"___________Search Results___________"<<endl;
                 for (const Book& book : catalogue_Vector) {
                 
@@ -149,9 +148,8 @@ int main()
     }else if(selector=='4'){//--------------------------------------
         int checkoutNumber;
         bool validInput = false;
-        cout<<"Enter the serial number of a book to check it out:";
-        cin>>checkoutNumber;
-        
+        checkoutNumber = validateInt("Enter the serial number of a book to check it out:");
+
         for (const Book& book : catalogue_Vector) {
                 
             if(book.serialNumber == checkoutNumber){
