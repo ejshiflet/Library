@@ -6,6 +6,7 @@
 
 #include "Search_Functions.h"
 #include "Book.h"
+#include "Validation.h"
 
 using namespace std;
 
@@ -79,8 +80,8 @@ int main()
     cout<<"4.Checkout"<<endl;
     cout<<"5.Purchase"<<endl;
     cout<<"6.Exit"<<endl;
-    cout<<"What operation would you like to perform?";
-    cin>>selector;
+    //cout<<"What operation would you like to perform?";
+    selector = validateChar("What operation would you like to perform?");
     
     if (selector=='1'){     //--------------------------------------
         
