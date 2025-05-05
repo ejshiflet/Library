@@ -7,10 +7,10 @@
 #include <limits>
 #include <algorithm>
 
-int ValidateInt(const std::string& prompt);
+int validateInt(const std::string& prompt);
 
-double ValidateDouble(const std::string& prompt);
+double validateDouble(const std::string& prompt);
 
-char ValidateChar(const std::string& prompt);
+char validateChar(const std::string& prompt);
 
 #endif
