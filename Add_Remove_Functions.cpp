@@ -1,4 +1,5 @@
 //add_remove_functions.cpp
+#include "Book.h"
 #include "Add_Remove_Functions.h"
 #include <stdexcept>
 #include <iostream>
@@ -14,7 +15,6 @@ using namespace std;
 //=========================================================================================================================================
 
 int getSerialNumber(vector<Book>& bookVector){
-    //cin.ignore();
     while(true){
     string serialNumberString;
     int serialNumber;
@@ -331,14 +331,11 @@ string getKeyWords(){//this function will get the book author first name
 
 //=========================================================================================================================================
 
-void addBookToTextFile(){
-    
-}
-
-//=========================================================================================================================================
-
 int addBook(vector<Book>& bookVector){//should return nothing but will allow the user to add a book and append it to the book vector and books.txt file
-    bool isValid = false;
+    bool isValid;
+    bool skipStructCreation;
+    
+    string bookName;
     int serialNumber;
     string title;
     string authorFirstName;
@@ -347,32 +344,48 @@ int addBook(vector<Book>& bookVector){//should return nothing but will allow the
     double price;
     string keyWords;
     
+    
+    
     while(!isValid){
-        int serialNumber = getSerialNumber(bookVector);
-        string title = getTitle(bookVector);
-        string authorFirstName = getFirstName(bookVector);
-        string authorLastName = getLastName(bookVector);
+        
+        isValid = false;
+        skipStructCreation = false;
+        
+        int serialNumber = getSerialNumber(bookVector);//gets serial number and stores in variable
+        string title = getTitle(bookVector);//gets title and stores in variable
+        string authorFirstName = getFirstName(bookVector);//gets author first name and stores in file
+        string authorLastName = getLastName(bookVector);//gets author last name and stores in file
+        
         for(auto&book : bookVector){//this for loop will will verify that the book entered does not exist
-            if(title==book.title and authorFirstName==book.authorFirstName and authorLastName==book.authorLastName){
-                cout<<"This book has already been added to the catologue.";
-                goto skipInputs;
+            if(title==book.title and authorFirstName==book.authorFirstName and authorLastName==book.authorLastName){//checks if title and author are the same
+                cout<<"This book has already been added to the catologue."<<endl;
+                skipStructCreation = true;
+                goto skipInputs;//skip over the rest of inputs
             }
             else{
                 continue;
             }
         }
-        genre = getGenre(bookVector);
-        price = getPrice(bookVector);
-        keyWords = getKeyWords();
         
-        //add book to txt file and vector there
+        genre = getGenre(bookVector);//get genre
+        price = getPrice(bookVector);//get price
+        keyWords = getKeyWords();//get keywords
         
         skipInputs:;
+        if(skipStructCreation == true){//will skip over struct creation if book has same tite and author
+            ;
+        }
+        else{
+            //add book to txt file and vector there
+            Book book(serialNumber, title, authorFirstName, authorLastName, genre, price, 1, keyWords);
+            bookVector.push_back(book);
+        }
         string stopOrContinue;
         
         cout<<"If you would like to continue entering books type '1' or '2' to return to main menu:";
         getline(cin, stopOrContinue);
-        while(true){
+        
+        while(true){//while loop will ask the user if they want to continue or back to main menu
             if(stopOrContinue=="1"){
                 isValid = false;
                 break;
@@ -386,6 +399,7 @@ int addBook(vector<Book>& bookVector){//should return nothing but will allow the
             }
         }
     }
+
     return 0;
 }
     
@@ -393,11 +407,3 @@ int addBook(vector<Book>& bookVector){//should return nothing but will allow the
 void removeBook(vector<Book>& bookVector){//should return nothing but will remove a book from the object vector and books file
     
 }
-
-
-    
-    
-
-
-    
-    
