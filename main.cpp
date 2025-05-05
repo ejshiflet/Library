@@ -8,6 +8,7 @@
 #include "Book.h"
 #include "Validation.h"
 #include "Parse_Catalogue.h"
+#include "Add_Remove_Functions.h"
 
 
 using namespace std;
@@ -20,10 +21,9 @@ int main()
     char selector;
     char searchSelector;
     while(selector!=6){
-    
     cout<<"______Welcome to the Catalogue_______"<<endl;
-    cout<<"1.Add Book(WIP)"<<endl;
-    cout<<"2.Remove Book(WIP)"<<endl;
+    cout<<"1.Add Book"<<endl;
+    cout<<"2.Remove Book"<<endl;
     cout<<"3.Search"<<endl;
     cout<<"4.Checkout"<<endl;
     cout<<"5.Purchase"<<endl;
@@ -31,12 +31,10 @@ int main()
     selector = validateChar("What operation would you like to perform?");
     
     if (selector=='1'){     //--------------------------------------
-        
-        cout<<"Nothing Here yet"<<endl;//###
+        addBook(catalogue_Vector);
         
     }else if(selector=='2'){//--------------------------------------
-
-        cout<<"Nothing Here yet"<<endl;//###
+        removeBook(catalogue_Vector);
         
     }else if(selector=='3'){//--------------------------------------
         string genre;
