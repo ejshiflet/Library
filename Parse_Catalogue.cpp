@@ -9,7 +9,7 @@ std::vector<Book> parseCatalogue(const std::string& filename) {
     std::ifstream file(filename);
 
     if (!file.is_open()) { // Send an error message if the file fails to open
-        std::cerr << "Error opening file!" << std::endl;
+        std::cerr << "" << std::endl;
         return catalogueVector;
     }
 
