@@ -1,4 +1,10 @@
 //add_remove_functions.cpp
+
+/*
+
+    Coded by Evan Shiflet 
+
+*/
 #include "Book.h"
 #include "Add_Remove_Functions.h"
 #include <stdexcept>
