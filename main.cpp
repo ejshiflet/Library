@@ -7,66 +7,14 @@
 #include "Search_Functions.h"
 #include "Book.h"
 #include "Validation.h"
+#include "Parse_Catalogue.h"
+
 
 using namespace std;
 
-vector<Book> parseCatalogue(const string& filename) {
-    vector<Book> catalogueVector; 
-    
-    ifstream file(filename);
-
-    if (!file.is_open()) {//send an error message if the file fails to open
-        cerr << "Error opening file!" << endl;
-        return catalogueVector;
-    }
-
-    string line;
-    getline(file, line);//skip the header line
-    
-    while (getline(file, line)) {
-        
-        stringstream bookstream(line);
-    
-        string serialString, title, authorFirst, authorLast, genre, priceString, stockString, keywords; //create strings to store values
-        
-        // Read values from the CSV
-        getline(bookstream, serialString, ',');
-        int serialNumber = stoi(serialString);// Convert serial to integer
-        
-        getline(bookstream, title, ',');
-        getline(bookstream, authorFirst, ',');
-        getline(bookstream, authorLast, ',');
-        getline(bookstream, genre, ',');
-        
-        getline(bookstream, priceString, ',');
-        double price = stod(priceString);// Convert price to double
-        
-        getline(bookstream, stockString, ',');
-        int stock = stoi(stockString);  // Convert stock to integer
-        
-        getline(bookstream, keywords);
-
-        
-        Book book(serialNumber, title, authorFirst, authorLast, genre, price, stock, keywords);// Create a Book object 
-        
-        catalogueVector.push_back(book);  // Add object to the vector
-    }
-
-    file.close();
-    return catalogueVector;  
-}
 int main()
 {   
-    /*
-    //books entered manually for testing purposes, file will be used in the future
-    Book book1(1, "Fourth Wing", "Rebecca", "Yarros", "Fantasy", 7.99, 1, "journey dragon kingdom");
-    Book book2(2, "Sunrise on the Reaping", "Suzanne", "Collins", "Science Fiction", 10.99, 1, "district love fight");
-    Book book3(3, "Think and Grow Rich", "Napoleon", "Hill", "Motivational", 9.99, 1, "money mind intelligence");
-    Book book4(4, "The Law of Success", "Napoleon", "Hill", "Motivational", 8.99, 1, "mind work succeed");
-    Book book5(5, "The Grey Wolf", "Louise", "Penny", "Mystery", 9.99, 1, "murder threat terrorism");
 
-    vector<Book> catalogue_Vector = {book1, book2, book3, book4, book5};
-    */
     vector<Book> catalogue_Vector = parseCatalogue("books.txt");
     
     char selector;
