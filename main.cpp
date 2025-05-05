@@ -42,16 +42,17 @@ int main()
         string genre;
         string authorFirstName;
         string authorLastName;
-        double price1;
-        double price2;
+        string searchText;
+        double price1 = 0.0;
+        double price2 = 999999999.0;
         while(searchSelector!='5'){
             
             cout<<"_____________Search Menu_____________"<<endl;
             cout<<"Edit filters?"<<endl;
-            cout<<"1.Genre(WIP)"<<endl;
-            cout<<"2.Author(WIP)"<<endl;
-            cout<<"3.Price"<<endl;
-            cout<<"4.Confirm Search"<<endl;
+            cout<<"1.Genre Filter"<<endl;
+            cout<<"2.Author Filter"<<endl;
+            cout<<"3.Price Filter"<<endl;
+            cout<<"4.Keyword Search"<<endl;
             cout<<"5.Back"<<endl;
             searchSelector = validateChar("What operation would you like to perform?");
             if (searchSelector=='1'){     //******************
@@ -72,9 +73,13 @@ int main()
                 bool noResults = true;
                 
                 cout<<"___________Search Results___________"<<endl;
+                cout<<"What would you like to search for?";
+                cin>>searchText;
+                
                 for (const Book& book : catalogue_Vector) {
                 
-                    if(/*genreSearch(book,genre) && authorSearch(book,authorFirstName,authorLastName) && */priceSearch(book,price1,price2) && inStock(book)){
+                    if(genreSearch(book,genre) && authorSearch(book,authorFirstName,authorLastName) && priceSearch(book,price1,price2) 
+                    && inStock(book) && ( titleSearch(book, searchText) || keywordSearch(book, searchText) ) ){
                     book.print();
                     noResults=false;
                     }
