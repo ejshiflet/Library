@@ -9,6 +9,8 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
+#include <fstream>
+#include "Validation.h"
 
 using namespace std;
 
@@ -207,7 +209,6 @@ double getPrice(vector<Book>& bookVector){
                 }
             }
             try {//this will try to convert the serial number entered to a string
-                cout<<priceString<<endl;
                 price = stod(priceString);//convert
                 valid_input = true;//if it works make the input valid
             } catch (const invalid_argument& e) {
@@ -260,7 +261,7 @@ string getKeyWords(){//this function will get the book author first name
             break;
         }
         else{
-            cout<<"Invalid input. Please enter the author's first name with only letters and no spaces: ";
+            cout<<"Invalid input. Please enter a keyword only letters and no spaces: ";
             continue;
         }
     }
@@ -290,7 +291,7 @@ string getKeyWords(){//this function will get the book author first name
             break;
         }
         else{
-            cout<<"Invalid input. Please enter the author's first name with only letters and no spaces: ";
+            cout<<"Invalid input. Please enter a keyword only letters and no spaces: ";
             continue;
         }
     }
@@ -320,7 +321,7 @@ string getKeyWords(){//this function will get the book author first name
             break;
         }
         else{
-            cout<<"Invalid input. Please enter the author's first name with only letters and no spaces: ";
+            cout<<"Invalid input. Please enter a keyword only letters and no spaces: ";
             continue;
         }
     }
@@ -329,13 +330,38 @@ string getKeyWords(){//this function will get the book author first name
 }
 
 
+
+//=========================================================================================================================================
+
+int writeVectorToFile(vector<Book>& bookVector){
+    string filename = "books.txt";
+    ofstream file(filename);
+    // Check if the file was opened successfully
+    if (file.is_open()) {
+        // Write the header row
+        file << "serialNumber,title,authorFirstName,authorLastName,genre,price,stock,keywords\n";
+
+        // Write each object to a new row in the txt file
+        for (auto& book : bookVector) {
+            file<< to_string(book.serialNumber)+","+book.title+","+book.authorFirstName+","+book.authorLastName+","+book.genre+",";
+            file<< fixed << setprecision(2) <<book.price;
+            file<< ","+to_string(book.stock)+","+book.keywords+"\n";
+            
+        }
+        file.close();//close file
+        return 0;
+    } 
+    else {
+        return 1;
+    }
+
+}
+
 //=========================================================================================================================================
 
 int addBook(vector<Book>& bookVector){//should return nothing but will allow the user to add a book and append it to the book vector and books.txt file
-    bool isValid;
+    bool isValid = false;
     bool skipStructCreation;
-    
-    string bookName;
     int serialNumber;
     string title;
     string authorFirstName;
@@ -376,16 +402,17 @@ int addBook(vector<Book>& bookVector){//should return nothing but will allow the
             ;
         }
         else{
-            //add book to txt file and vector there
+            //add book to txt file and vector here
             Book book(serialNumber, title, authorFirstName, authorLastName, genre, price, 1, keyWords);
             bookVector.push_back(book);
+            writeVectorToFile(bookVector);
         }
         string stopOrContinue;
         
         cout<<"If you would like to continue entering books type '1' or '2' to return to main menu:";
-        getline(cin, stopOrContinue);
         
         while(true){//while loop will ask the user if they want to continue or back to main menu
+            getline(cin,stopOrContinue);
             if(stopOrContinue=="1"){
                 isValid = false;
                 break;
@@ -395,7 +422,7 @@ int addBook(vector<Book>& bookVector){//should return nothing but will allow the
                 break;
             }
             else{
-                cout<<"Invalid input. Please enter '1' or '2'."<<endl;
+                cout<<"Invalid input. Please enter '1' or '2': ";
             }
         }
     }
@@ -404,6 +431,65 @@ int addBook(vector<Book>& bookVector){//should return nothing but will allow the
 }
     
 
-void removeBook(vector<Book>& bookVector){//should return nothing but will remove a book from the object vector and books file
+int removeBook(vector<Book>& bookVector){//should return nothing but will remove a book from the object vector and books file
+    string serialNumberToRemove;//will hold serial number to be removed
+    int bookIndex;//will count book index
+    bool bookFound;//will become true if a book with serial number exist
+    string stopOrContinue;//will get input for removing more books or not
+    bool noMoreRemoving = false;//will set to true if user does not want to enter more books
     
+    while(!noMoreRemoving){
+        if(bookVector.size() == 0){
+            cout<<"No books have been added. Returning to main menu.";
+            break;
+        }
+        cout<<"\n";
+        bookFound = false;
+        bookIndex = 0;//keep book index set to zero
+        
+        for(auto&book : bookVector){//for loop to print out book info
+            cout<<"Serial Number: " + to_string(book.serialNumber) + " | Title: " + book.title + " | Author: " + book.authorFirstName + " " + book.authorLastName << endl;
+        }
+        cout<<"\nPlease enter the serial number of the book you would like to remove from the data base: ";
+        while(true){//while true loop till user enters valid serial number
+            getline(cin,serialNumberToRemove);
+            for(auto&book : bookVector){//for loop to iterate through all books
+                if(to_string(book.serialNumber) == serialNumberToRemove){//if the serial exist remove it
+                    cout<<book.title + " has been removed.";
+                    bookVector.erase(bookVector.begin() + bookIndex);//erase book
+                    bookVector.shrink_to_fit();//remove spaces
+                    bookFound = true;//set book fount to true
+                }
+                else{
+                    bookIndex = bookIndex + 1;
+                }
+            }
+            if(bookFound == true){//if book is found loop will break and ask if more book want to be removed
+                break;
+            }
+            else{
+                cout<<"No serial number found. Please enter the serial number of the book with no spaces as shown from the list:";
+            }
+        }
+        
+        cout<<" If you would like to continue removing books type '1' or '2' to return to main menu:";
+
+            
+        while(true){//while loop will ask the user if they want to continue or back to main menu
+            getline(cin,stopOrContinue);
+            if(stopOrContinue=="1"){
+                noMoreRemoving = false;
+                break;
+            }
+            else if(stopOrContinue == "2"){
+                noMoreRemoving = true;//when it is set to true it will break the enter loop 
+                break;
+            }
+            else{
+                cout<<"Invalid input. Please enter '1' or '2': ";
+            }
+        }
+    }
+    writeVectorToFile(bookVector);//adds the new vector info to the file
+    return 0;
 }
