@@ -1,6 +1,6 @@
 #include "Validation.h"
 
-int ValidateInt(const std::string& prompt) {
+int validateInt(const std::string& prompt) {
     int value;
     
     std::cout << prompt;//ask question
@@ -18,7 +18,7 @@ int ValidateInt(const std::string& prompt) {
 }
 
 
-double ValidateDouble(const std::string& prompt) {
+double validateDouble(const std::string& prompt) {
     double value;
     
     std::cout << prompt;//ask question
