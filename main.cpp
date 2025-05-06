@@ -95,7 +95,7 @@ int main()
                 cout<<"Invalid Number entered, please try again."<<endl;
             }
         }
-        
+        searchSelector = 1;
         
     }else if(selector=='4'){//--------------------------------------
         int checkoutNumber;
