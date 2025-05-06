@@ -1,3 +1,4 @@
+//Coded by Shawn Michaelis
 #ifndef BOOK_H
 #define BOOK_H
 #include <iostream>
