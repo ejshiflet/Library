@@ -1,3 +1,4 @@
+//Coded by Shawn Michaelis
 #include <iostream>
 #include <fstream>
 #include <sstream>
