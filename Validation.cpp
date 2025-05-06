@@ -1,3 +1,4 @@
+//Coded by Shawn Michaelis
 #include "Validation.h"
 
 int validateInt(const std::string& prompt) {
